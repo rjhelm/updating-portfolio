@@ -16,6 +16,6 @@ export const formatDateTime = (dateTime, dateOptions, timeOptions) => {
     const date = dateTime.toLocaleTimeString([], dateOptions);
     return {
         date,
-        time: timeOptions.hour12suffix ? time : time.replace('AM', '').replace('PM', '');
+        time: timeOptions.hour12suffix ? time : time.replace('AM', '').replace('PM', '')
     };
 };
