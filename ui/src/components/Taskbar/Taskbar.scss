@@ -1,0 +1,145 @@
+@use '../../scss/mixins';
+@import '../../scss/variables';
+
+$taskbarHeight: 48px;
+$taskbarAppSpacing: 16px;
+
+.Taskbar-children {
+    font-size: 16px;
+    margin-bottom: -4px;
+    display: flex;
+    height: $taskbarHeight;
+    align-items: center;
+}
+
+.Taskbar-left {
+    display: flex;
+    align-items: flex-start;
+    > * {
+        @extend .Taskbar-children;
+        padding: 0 $taskbarAppSpacing
+    }
+}
+
+.Taskbar-right {
+    display: flex;
+    align-items: flex-end;
+    > * {
+        @extend .Taskbar-children;
+        padding: 0 $taskbarAppSpacing;
+    }
+}
+
+.Taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: $taskbarHeight !important;
+    background: $taskbarBg;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10000;
+    > * {
+        height: $taskbarHeight;
+    }
+    svg {
+        fill: $taskbarFg;
+    }
+    &-searchbar {
+        position: relative;
+        width: 400px;
+        height: $taskbarHeight;
+        &-psuedo, input {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            font-size: 16px;
+            padding: 0 $taskbarAppSpacing;
+        }
+        &-psuedo {
+            display: flex;
+            align-items: center;
+            color: white;
+            background: #625959;
+
+            span {
+                margin-left: 12px;
+            }
+        }
+        input {
+            outline: none;
+            border: 0;
+            height: $taskbarHeight;
+            transition: background 0.25s ease;
+        }
+
+        input:not(:valid) {
+            background: transparent;
+        }
+        input:valid, input:focus {
+            background: white;
+            color: black;
+        }
+    }
+    &-app {
+        margin-left: 4px;
+        font-size: 24px;
+
+        &-instances {
+            position: absolute;
+            font-size: 12px;
+            display: none;
+            flex-direction: column;
+            width: max-content;
+            min-width: 240px;
+            bottom: 100%;
+            top: -1;
+            transform: translate(-50%);
+            background: $taskbarHoverBg;
+
+            &-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 6px 16px;
+                cursor: default;
+                margin: 2px 8px;
+                border-radius: 4px;
+
+                &-title {
+                    @include mixins.fontType('semibold');
+                    margin-right: 8px;
+                    color: white;
+                }
+
+                &-close {
+                    padding: 2px;
+                    > * {
+                        margin-bottom: -2px;
+                    }
+                }
+            }
+            &-item:first-of-type {
+                margin-top: 6px;
+            }
+            &-item:last-of-type {
+                margin-bottom: 6px;
+            }
+            &-item:hover {
+                background: rgba(227, 21, 62, 0.4);
+            }
+        }
+    }
+    &-app:hover > * {
+        display: flex;
+    }
+    &-app-running {
+        border-bottom: 4px solid aqua;
+        background: rgba(192, 192, 192, 0.1);
+    }
+}
